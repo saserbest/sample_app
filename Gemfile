@@ -11,4 +11,5 @@ end
 group :test do
   gem 'rspec', '2.3.0'
   gem 'webrat'
+  gem 'factory_girl_rails'
 end
