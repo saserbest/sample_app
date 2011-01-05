@@ -18,10 +18,13 @@ describe SessionsController do
   
   describe "POST 'create'" do
     
-    before(:each) do
-      @attr = { :email => "", :password => "" }
-    end
+
     describe "failure" do
+      
+      before(:each) do
+        @attr = { :email => "", :password => "" }
+      end
+      
       it "should re-render  the new page" do
         post :create, :session => @attr
         response.should render_template('new')
@@ -39,6 +42,27 @@ describe SessionsController do
       
     end
     
+    describe "sucsess" do
+      
+      before(:each) do
+        @user = Factory(:user)
+        @attr = { :email => @user.email, :password  => @user.password }
+      end
+      
+      it "Should sign the user in" do
+        post :create, :session  => @attr
+        controller.current_user.should == @user
+        controller.should be_signed_in
+        
+      end
+      
+      
+      it "should redirect to the user show page" do
+        post :create, :session  => @attr
+        response.should redirect_to(user_path(@user))
+      end
+    end
   end
+
 
 end
