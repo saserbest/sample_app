@@ -173,7 +173,23 @@ describe UsersController do
       put :update, :id => @user, :user  => @attr
       flash[:success].should =~ /updated/i
     end
+  end
 
+  describe "auhtentication of edit/update actions" do
+    
+    before(:each) do
+      @user = Factory(:user)
+    end
+    it "should deny access to 'edit'" do
+      get :edit, :id => @user
+      response.should redirect_to(signin_path)
+      flash
+    end
+    
+    it "should deny access to 'update'" do
+      put :update, :id  => @user, :user => {}
+      response.should redirect_to(signin_path)
+    end
   end
 end
 
