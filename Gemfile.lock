@@ -97,7 +97,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate-models
+  annotate-models (= 1.0.4)
   factory_girl_rails
   faker
   gravatar_image_tag
